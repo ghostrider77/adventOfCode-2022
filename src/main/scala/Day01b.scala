@@ -6,7 +6,7 @@ object Day01b:
     def loop(acc: List[List[Int]], calories: Iterator[String]): List[List[Int]] =
       if calories.isEmpty then acc.reverse
       else
-        val (currentElf, rest): (Iterator[String], Iterator[String]) = calories.span(_ != "")
+        val (currentElf, rest): (Iterator[String], Iterator[String]) = calories.span(_.nonEmpty)
         loop(currentElf.map(_.toInt).toList :: acc, rest.drop(1))
 
     loop(Nil, lines)

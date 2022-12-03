@@ -51,4 +51,39 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 03" - {
+
+    "Part 1" - {
+      import Day03a.calcSumOfPriorities
+
+      "should calculate the sum of priorities of the common item types" in {
+        val rucksackItems: List[String] =
+          List(
+            "vJrwpWtwJgWrhcsFMMfFFhFp",
+            "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+            "PmmdzqPrVvPwwTWBwg",
+            "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+            "ttgJtRGJQctTZtZT",
+            "CrZsJsPPZsGzwwsLwLmpwMDw"
+          )
+
+        calcSumOfPriorities(rucksackItems) shouldEqual 157
+      }
+    }
+
+    "Part 2" - {
+      import Day03b.calcSumOfPriorities
+
+      "should calculate the sum of priorities of the item types corresponding to a badge" in {
+        val rucksackGroups: List[List[String]] =
+          List(
+            List("vJrwpWtwJgWrhcsFMMfFFhFp", "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL", "PmmdzqPrVvPwwTWBwg"),
+            List("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn", "ttgJtRGJQctTZtZT", "CrZsJsPPZsGzwwsLwLmpwMDw")
+          )
+
+        calcSumOfPriorities(rucksackGroups) shouldEqual 70
+      }
+    }
+  }
+
 end AocSuite

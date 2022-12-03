@@ -56,7 +56,6 @@ object Day02b:
       case Some(shape) => shape
       case None => throw new Exception(s"Impossible to find required shape against $opponentsShape.")
 
-
   private def readRounds(lines: Iterator[String]): List[Round] =
     def createRound(line: String): Round = line match
       case s"${shape1} ${expectedOutcome}" =>

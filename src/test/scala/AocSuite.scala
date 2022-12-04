@@ -86,4 +86,43 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 04" - {
+
+    "Part 1" - {
+      import Day04a.{Section, calcNumberOfFullyContainedPairs}
+
+      "should calculate the number of fully containing section pairs" in {
+        val sectionPairs: List[(Section, Section)] =
+          List(
+            (Section(2, 4), Section(6, 8)),
+            (Section(2, 3), Section(4, 5)),
+            (Section(5, 7), Section(7, 9)),
+            (Section(2, 8), Section(3, 7)),
+            (Section(6, 6), Section(4, 6)),
+            (Section(2, 6), Section(4, 8)),
+          )
+
+        calcNumberOfFullyContainedPairs(sectionPairs) shouldEqual 2
+      }
+    }
+
+    "Part 2" - {
+      import Day04b.{Section, calcNumberOfOverlappingPairs}
+
+      "should calculate the number of overlapping section pairs" in {
+        val sectionPairs: List[(Section, Section)] =
+          List(
+            (Section(2, 4), Section(6, 8)),
+            (Section(2, 3), Section(4, 5)),
+            (Section(5, 7), Section(7, 9)),
+            (Section(2, 8), Section(3, 7)),
+            (Section(6, 6), Section(4, 6)),
+            (Section(2, 6), Section(4, 8)),
+          )
+
+        calcNumberOfOverlappingPairs(sectionPairs) shouldEqual 4
+      }
+    }
+  }
+
 end AocSuite

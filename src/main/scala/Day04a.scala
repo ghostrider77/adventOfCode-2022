@@ -6,8 +6,8 @@ object Day04a:
       Section(s.toInt, e.toInt)
 
   private def readSectionAssigmnentPairs(lines: Iterator[String]): List[(Section, Section)] =
+    val pattern = "(\\d+)-(\\d+),(\\d+)-(\\d+)".r
     def parseLine(line: String): (Section, Section) =
-      val pattern = "(\\d+)-(\\d+),(\\d+)-(\\d+)".r
       line match
         case pattern(start1, end1, start2, end2) => (Section(start1, end1), Section(start2, end2))
         case _ => throw new Exception(s"Malformed input: $line.")

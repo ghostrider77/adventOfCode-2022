@@ -1,5 +1,4 @@
 object Day04b:
-
   final case class Section(start: Int, end: Int)
 
   object Section:
@@ -18,15 +17,13 @@ object Day04b:
   private def isFullyContained(section1: Section, section2: Section): Boolean =
     section1.start >= section2.start && section1.end <= section2.end
 
-  private def isOverlappingSections(section1: Section, section2: Section): Boolean =
+  private def areOverlappingSections(section1: Section, section2: Section): Boolean =
     isFullyContained(section1, section2) || isFullyContained(section2, section1) ||
       (section1.start <= section2.start && section1.end >= section2.start) ||
       (section1.start <= section2.end && section1.end >= section2.end)
 
   def calcNumberOfOverlappingPairs(sectionPairs: List[(Section, Section)]): Int =
-    sectionPairs.foldLeft(0) { case (acc, (section1, section2)) =>
-      if isOverlappingSections(section1, section2) then acc + 1 else acc
-    }
+    sectionPairs.count(areOverlappingSections)
 
   def main(args: Array[String]): Unit =
     val lines: Iterator[String] = scala.io.Source.fromResource("input04.txt").getLines()

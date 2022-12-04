@@ -18,9 +18,9 @@ object Day04a:
     section1.start >= section2.start && section1.end <= section2.end
 
   def calcNumberOfFullyContainedPairs(sectionPairs: List[(Section, Section)]): Int =
-    sectionPairs.foldLeft(0){ case (acc, (section1, section2)) =>
-      if isFullyContained(section1, section2) || isFullyContained(section2, section1) then acc + 1 else acc
-    }
+    sectionPairs.count(
+      (section1, section2) => isFullyContained(section1, section2) || isFullyContained(section2, section1)
+    )
 
   def main(args: Array[String]): Unit =
     val lines: Iterator[String] = scala.io.Source.fromResource("input04.txt").getLines()
@@ -29,4 +29,3 @@ object Day04a:
     println(result)
 
 end Day04a
-

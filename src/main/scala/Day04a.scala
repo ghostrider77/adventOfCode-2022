@@ -5,12 +5,11 @@ object Day04a:
     def apply(s: String, e: String): Section =
       Section(s.toInt, e.toInt)
 
-  private def readSectionAssigmnentPairs(lines: Iterator[String]): List[(Section, Section)] =
+  private def readSectionAssignmentPairs(lines: Iterator[String]): List[(Section, Section)] =
     val pattern = "(\\d+)-(\\d+),(\\d+)-(\\d+)".r
-    def parseLine(line: String): (Section, Section) =
-      line match
-        case pattern(start1, end1, start2, end2) => (Section(start1, end1), Section(start2, end2))
-        case _ => throw new Exception(s"Malformed input: $line.")
+    def parseLine(line: String): (Section, Section) = line match
+      case pattern(start1, end1, start2, end2) => (Section(start1, end1), Section(start2, end2))
+      case _ => throw new Exception(s"Malformed input: $line.")
 
     lines.map(parseLine).toList
 
@@ -24,7 +23,7 @@ object Day04a:
 
   def main(args: Array[String]): Unit =
     val lines: Iterator[String] = scala.io.Source.fromResource("input04.txt").getLines()
-    val sectionPairs = readSectionAssigmnentPairs(lines)
+    val sectionPairs = readSectionAssignmentPairs(lines)
     val result: Int = calcNumberOfFullyContainedPairs(sectionPairs)
     println(result)
 

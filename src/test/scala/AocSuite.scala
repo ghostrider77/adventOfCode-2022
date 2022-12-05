@@ -24,7 +24,6 @@ class AocSuite extends AnyFreeSpec, Matchers:
   }
 
   "Day 02" - {
-
     "Part 1" - {
       import Day02a.{Round, Shape, calcTotalScore}
 
@@ -52,7 +51,6 @@ class AocSuite extends AnyFreeSpec, Matchers:
   }
 
   "Day 03" - {
-
     "Part 1" - {
       import Day03a.calcSumOfPriorities
 
@@ -87,7 +85,6 @@ class AocSuite extends AnyFreeSpec, Matchers:
   }
 
   "Day 04" - {
-
     "Part 1" - {
       import Day04a.{Section, calcNumberOfFullyContainedPairs}
 
@@ -121,6 +118,30 @@ class AocSuite extends AnyFreeSpec, Matchers:
           )
 
         calcNumberOfOverlappingPairs(sectionPairs) shouldEqual 4
+      }
+    }
+  }
+
+  "Day 05" - {
+    "Part 1" - {
+      import Day05a.{Move, getTopItems}
+
+      "should calculate the string spelled by the crate tops" in {
+        val initialCrates: Vector[List[Char]] = Vector(List('N', 'Z'), List('D', 'C', 'M'), List('P'))
+        val moves: List[Move] = List(Move(2, 1, 1), Move(1, 3, 3), Move(2, 1, 2), Move(1, 2, 1))
+
+        getTopItems(initialCrates, moves) shouldEqual "CMZ"
+      }
+    }
+
+    "Part 2" - {
+      import Day05b.{Move, getTopItems}
+
+      "should calculate the string spelled by the crate tops when multiple items can be moved at once" in {
+        val initialCrates: Vector[List[Char]] = Vector(List('N', 'Z'), List('D', 'C', 'M'), List('P'))
+        val moves: List[Move] = List(Move(2, 1, 1), Move(1, 3, 3), Move(2, 1, 2), Move(1, 2, 1))
+
+        getTopItems(initialCrates, moves) shouldEqual "MCD"
       }
     }
   }

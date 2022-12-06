@@ -146,4 +146,33 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 05" - {
+    val signals: List[String] =
+      List(
+        "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
+        "bvwbjplbgvbhsrlpgdmjqwftvncz",
+        "nppdvjthqldpwncqszvftbrmjlhg",
+        "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg",
+        "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
+      )
+
+    "Part 1" - {
+      import Day06a.findStartOfPacketMarker
+
+      "should calculate the index of the start-of-packet marker" in {
+        val markerSize: Int = 4
+        signals.map(findStartOfPacketMarker(_, markerSize)) shouldEqual List(7, 5, 6, 10 ,11)
+      }
+    }
+
+    "Part 2" - {
+      import Day06b.findStartOfMessageMarker
+
+      "should calculate the index of the start-of-message marker" in {
+        val markerSize: Int = 14
+        signals.map(findStartOfMessageMarker(_, markerSize)) shouldEqual List(19, 23, 23, 29, 26)
+      }
+    }
+  }
+
 end AocSuite

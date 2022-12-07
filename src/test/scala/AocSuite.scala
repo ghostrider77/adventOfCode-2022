@@ -146,7 +146,7 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
-  "Day 05" - {
+  "Day 06" - {
     val signals: List[String] =
       List(
         "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
@@ -175,4 +175,54 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 07" - {
+    val terminalOutput: List[String] =
+      List(
+        "$ cd /",
+        "$ ls",
+        "dir a",
+        "14848514 b.txt",
+        "8504156 c.dat",
+        "dir d",
+        "$ cd a",
+        "$ ls",
+        "dir e",
+        "29116 f",
+        "2557 g",
+        "62596 h.lst",
+        "$ cd e",
+        "$ ls",
+        "584 i",
+        "$ cd ..",
+        "$ cd ..",
+        "$ cd d",
+        "$ ls",
+        "4060174 j",
+        "8033020 d.log",
+        "5626152 d.ext",
+        "7214296 k"
+      )
+
+    "Part 1" - {
+      import Day07a.{Directory, Path, parseFileSystem, calcTotalSizeOfSmallDirectories}
+
+      "should calculate the total size of directories whose size does not exceed 100000" in {
+        val limit: Int = 100000
+        val directoryStructure: Map[Path, Directory] = parseFileSystem(terminalOutput.iterator)
+        calcTotalSizeOfSmallDirectories(directoryStructure, limit) shouldEqual 95437
+      }
+    }
+
+    "Part 2" - {
+      import Day07b.{Directory, Path, parseFileSystem, findSmallestRemovableDirectory}
+
+      "should calculate the size of the smallest directory whose removal frees enough memory" in {
+        val availableDiskSpace: Int = 70000000
+        val requiredSpace: Int = 30000000
+        val directoryStructure: Map[Path, Directory] = parseFileSystem(terminalOutput.iterator)
+        findSmallestRemovableDirectory(directoryStructure, availableDiskSpace, requiredSpace) shouldEqual 24933642
+      }
+    }
+  }
+  
 end AocSuite

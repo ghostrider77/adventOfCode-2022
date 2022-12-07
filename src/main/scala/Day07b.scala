@@ -25,31 +25,36 @@ object Day07b:
       case None => throw new Exception("Folder is not found!")
       case Some(subfolderPath) => subfolderPath
 
+  private def parseTerminalOutput(tree: Map[Path, Directory],
+                                  path: Path, line: String): (Map[Path, Directory], Path) =
+    val currentDirectory @ Directory(_, subdirectories, files) = tree(path)
+    line match
+      case s"$$ cd /" => (tree, Path(""))
+      case s"$$ cd .." => (tree, path.parent)
+      case s"$$ cd $foldername" => (tree, findPathOfSubdirectory(subdirectories, foldername))
+      case s"$$ ls" => (tree, path)
+      case s"dir $dirname" =>
+        val subfolderPath: Path = path / dirname
+        val updatedTree: Map[Path, Directory] =
+          if !tree.contains(subfolderPath) then
+            tree
+              .updated(path, currentDirectory.copy(subdirectories = subdirectories + (path / dirname)))
+              .updated(subfolderPath, Directory(subfolderPath, Set.empty[Path], Set.empty[File]))
+          else tree
+        (updatedTree, path)
+      case s"$size $name" =>
+        val updatedTree: Map[Path, Directory] =
+          tree.updated(path, currentDirectory.copy(files = files + File(path / name, size.toInt)))
+        (updatedTree, path)
+      case _ => throw new Exception(s"Unknown terminal output $line.")
+
   def parseFileSystem(lines: Iterator[String]): Map[Path, Directory] =
     @tailrec
-    def loop(tree: Map[Path, Directory], path: Path): Map[Path, Directory] =
-      val currentDirectory@Directory(_, subdirectories, files) = tree(path)
-      lines.nextOption() match
-        case None => tree
-        case Some(line) => line match
-          case s"$$ cd /" => loop(tree, Path(""))
-          case s"$$ cd .." => loop(tree, path.parent)
-          case s"$$ cd $foldername" =>
-            loop(tree, findPathOfSubdirectory(subdirectories, foldername))
-          case s"$$ ls" => loop(tree, path)
-          case s"dir $dirname" =>
-            val subfolderPath: Path = path / dirname
-            val updatedTree: Map[Path, Directory] =
-              if !tree.contains(subfolderPath) then tree
-                .updated(path, currentDirectory.copy(subdirectories = subdirectories + (path / dirname)))
-                .updated(subfolderPath, Directory(subfolderPath, Set.empty[Path], Set.empty[File]))
-              else tree
-            loop(updatedTree, path)
-          case s"$size $name" =>
-            val updatedTree: Map[Path, Directory] =
-              tree.updated(path, currentDirectory.copy(files = files + File(path / name, size.toInt)))
-            loop(updatedTree, path)
-          case _ => throw new Exception(s"Unknown terminal output $line.")
+    def loop(tree: Map[Path, Directory], path: Path): Map[Path, Directory] = lines.nextOption() match
+      case None => tree
+      case Some(line) =>
+        val (updatedTree, nextPath): (Map[Path, Directory], Path) = parseTerminalOutput(tree, path, line)
+        loop(updatedTree, nextPath)
 
     val root: Directory = Directory(path = Path(""), subdirectories = Set.empty[Path], files = Set.empty[File])
     loop(Map(root.path -> root), root.path)

@@ -63,7 +63,11 @@ object Day07a:
         files.map(_.size).sum + subdirectories.map(totalSizeOfDirectory(tree, _)).sum
 
   def calcTotalSizeOfSmallDirectories(tree: Map[Path, Directory], limit: Int): Int =
-    tree.keysIterator.map(totalSizeOfDirectory(tree, _)).filter(_ <= limit).sum
+    tree
+      .keysIterator
+      .map(totalSizeOfDirectory(tree, _))
+      .filter(_ <= limit)
+      .sum
 
   def main(args: Array[String]): Unit =
     val lines: Iterator[String] = scala.io.Source.fromResource("input07.txt").getLines()

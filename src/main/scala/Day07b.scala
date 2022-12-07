@@ -66,9 +66,11 @@ object Day07b:
 
   def findSmallestRemovableDirectory(tree: Map[Path, Directory], availableDiskSpace: Int, requiredSpace: Int): Int =
     val unusedSpace: Int = availableDiskSpace - totalSizeOfDirectory(tree, Path(""))
-    val removableDirectorySizes: Set[Int] =
-      tree.keySet.map(totalSizeOfDirectory(tree, _)).filter(_ + unusedSpace >= requiredSpace)
-    removableDirectorySizes.min
+    tree
+      .keysIterator
+      .map(totalSizeOfDirectory(tree, _))
+      .filter(_ + unusedSpace >= requiredSpace)
+      .min
 
   def main(args: Array[String]): Unit =
     val lines: Iterator[String] = scala.io.Source.fromResource("input07.txt").getLines()

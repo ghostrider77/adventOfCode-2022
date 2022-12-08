@@ -15,9 +15,7 @@ object Day07b:
   end Path
 
   sealed trait FileSystem
-
   case class File(path: Path, size: Int) extends FileSystem
-
   case class Directory(path: Path, subdirectories: Set[Path], files: Set[File]) extends FileSystem
 
   private def findPathOfSubdirectory(subdirectories: Set[Path], foldername: String): Path =

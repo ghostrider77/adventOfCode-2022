@@ -223,6 +223,33 @@ class AocSuite extends AnyFreeSpec, Matchers:
         findSmallestRemovableDirectory(directoryStructure, availableDiskSpace, requiredSpace) shouldEqual 24933642
       }
     }
+
+    "Day 08" - {
+      val trees: Vector[Vector[Int]] =
+        Vector(
+          Vector(3, 0, 3, 7, 3),
+          Vector(2, 5, 5, 1, 2),
+          Vector(6, 5, 3, 3, 2),
+          Vector(3, 3, 5, 4, 9),
+          Vector(3, 5, 3, 9, 0)
+        )
+
+      "Part 1" - {
+        import Day08a.{TreeGrid, countNrVisibleTrees}
+
+        "should count the number of trees visible from either side of the forest" in {
+          countNrVisibleTrees(TreeGrid(5, 5, trees)) shouldEqual 21
+        }
+      }
+
+      "Part 2" - {
+        import Day08b.{TreeGrid, getHighestScenicScore}
+
+        "should return the highest scenic score" in {
+          getHighestScenicScore(TreeGrid(5, 5, trees)) shouldEqual 8
+        }
+      }
+    }
   }
-  
+
 end AocSuite

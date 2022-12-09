@@ -250,6 +250,49 @@ class AocSuite extends AnyFreeSpec, Matchers:
         }
       }
     }
+
+    "Day 09" - {
+      "Part 1" - {
+        import Day09a.{Direction, Motion, calcNrVisitedPositions}
+
+        "should calculate the number of unique positions that tail has visited" in {
+          val motions: List[Motion] =
+            List(
+              Motion(Direction.Right, 4),
+              Motion(Direction.Up, 4),
+              Motion(Direction.Left, 3),
+              Motion(Direction.Down, 1),
+              Motion(Direction.Right, 4),
+              Motion(Direction.Down, 1),
+              Motion(Direction.Left, 5),
+              Motion(Direction.Right, 2)
+            )
+
+          calcNrVisitedPositions(motions) shouldEqual 13
+        }
+      }
+
+      "Part 2" - {
+        import Day09b.{Direction, Motion, calcNrVisitedPositions}
+
+        "should calculate the number of unique positions that the tail of a large rope has visited" in {
+          val motions: List[Motion] =
+            List(
+              Motion(Direction.Right, 5),
+              Motion(Direction.Up, 8),
+              Motion(Direction.Left, 8),
+              Motion(Direction.Down, 3),
+              Motion(Direction.Right, 17),
+              Motion(Direction.Down, 10),
+              Motion(Direction.Left, 25),
+              Motion(Direction.Up, 20)
+            )
+
+          val ropeSize: Int = 10
+          calcNrVisitedPositions(motions, ropeSize) shouldEqual 36
+        }
+      }
+    }
   }
 
 end AocSuite

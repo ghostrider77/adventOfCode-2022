@@ -293,6 +293,38 @@ class AocSuite extends AnyFreeSpec, Matchers:
         }
       }
     }
+
+    "Day 10" - {
+      val lines: List[String] = scala.io.Source.fromResource("test10.txt").getLines().toList
+
+      "Part 1" - {
+        import Day10a.{Program, calcSumOfSignalStrengths, readInstructions}
+
+        "should calculate the signal srength" in {
+          val program: List[Program] = readInstructions(lines.iterator)
+          calcSumOfSignalStrengths(program) shouldEqual 13140
+        }
+      }
+
+      "Part 2" - {
+        import Day10b.{Pixel, Program, calcScreenContent, readInstructions}
+
+        "should calculate the viisble CRT screen pixels" in {
+          val program: List[Program] = readInstructions(lines.iterator)
+          val screen: List[Pixel] = calcScreenContent(program)
+          val expectedContent: List[String] = List(
+            "##..##..##..##..##..##..##..##..##..##..",
+            "###...###...###...###...###...###...###.",
+            "####....####....####....####....####....",
+            "#####.....#####.....#####.....#####.....",
+            "######......######......######......####",
+            "#######.......#######.......#######....."
+          )
+
+          screen.grouped(40).map(_.mkString).toList shouldEqual expectedContent
+        }
+      }
+    }
   }
 
 end AocSuite

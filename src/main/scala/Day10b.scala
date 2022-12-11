@@ -42,4 +42,3 @@ object Day10b:
     result.grouped(40).foreach(row => println(row.mkString))
 
 end Day10b
-

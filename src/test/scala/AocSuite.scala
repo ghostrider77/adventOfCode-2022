@@ -300,7 +300,7 @@ class AocSuite extends AnyFreeSpec, Matchers:
       "Part 1" - {
         import Day10a.{Program, calcSumOfSignalStrengths, readInstructions}
 
-        "should calculate the signal srength" in {
+        "should calculate the signal strength" in {
           val program: List[Program] = readInstructions(lines.iterator)
           calcSumOfSignalStrengths(program) shouldEqual 13140
         }
@@ -309,7 +309,7 @@ class AocSuite extends AnyFreeSpec, Matchers:
       "Part 2" - {
         import Day10b.{Pixel, Program, calcScreenContent, readInstructions}
 
-        "should calculate the viisble CRT screen pixels" in {
+        "should calculate the visible CRT screen pixels" in {
           val program: List[Program] = readInstructions(lines.iterator)
           val screen: List[Pixel] = calcScreenContent(program)
           val expectedContent: List[String] = List(
@@ -322,6 +322,41 @@ class AocSuite extends AnyFreeSpec, Matchers:
           )
 
           screen.grouped(40).map(_.mkString).toList shouldEqual expectedContent
+        }
+      }
+    }
+
+    "Day 11" - {
+
+      "Part 1" - {
+        import Day11a.{Monkey, countMonkeyBusinessLevel}
+
+        "should calculate the level of monkey business" in {
+          val monkeys: Vector[Monkey] =
+            Vector(
+              Monkey(List(79, 98), 0, (x: Int) => x * 19, 23, 2, 3),
+              Monkey(List(54, 65, 75, 74), 1, (x: Int) => x + 6, 19, 2, 0),
+              Monkey(List(79, 60, 97), 2, (x: Int) => x * x, 13, 1, 3),
+              Monkey(List(74), 3, (x: Int) => x + 3, 17, 0, 1)
+            )
+
+          countMonkeyBusinessLevel(monkeys, nrRounds = 20) shouldEqual 10605
+        }
+      }
+
+      "Part 2" - {
+        import Day11b.{Monkey, countMonkeyBusinessLevel}
+
+        "should calculate the level of very long monkey business" in {
+          val monkeys: Vector[Monkey] =
+            Vector(
+              Monkey(List(79, 98), 0, (x: Long) => x * 19, 23, 2, 3),
+              Monkey(List(54, 65, 75, 74), 1, (x: Long) => x + 6, 19, 2, 0),
+              Monkey(List(79, 60, 97), 2, (x: Long) => x * x, 13, 1, 3),
+              Monkey(List(74), 3, (x: Long) => x + 3, 17, 0, 1)
+            )
+
+          countMonkeyBusinessLevel(monkeys, nrRounds = 20) shouldEqual 10197L
         }
       }
     }

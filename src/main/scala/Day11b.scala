@@ -71,19 +71,19 @@ object Day11b:
         (acc / gcd) * x
     )
 
-  private def singleTurn(monkey: Monkey, monkeys: Vector[Monkey], m: Long): Int =
-    @tailrec
-    def loop(nrItemsThrown: Int): Int =
-      monkey.throwItem(m) match
-        case None => nrItemsThrown
-        case Some((id, item)) =>
-          monkeys(id).receiveItem(item)
-          loop(nrItemsThrown + 1)
-
-    loop(0)
-
   private def performRound(monkeys: Vector[Monkey], m: Long): List[Int] =
-    monkeys.foldLeft(List.empty[Int])((acc, monkey) => singleTurn(monkey, monkeys, m) :: acc).reverse
+    def singleTurn(monkey: Monkey, monkeys: Vector[Monkey]): Int =
+      @tailrec
+      def loop(nrItemsThrown: Int): Int =
+        monkey.throwItem(m) match
+          case None => nrItemsThrown
+          case Some((id, item)) =>
+            monkeys(id).receiveItem(item)
+            loop(nrItemsThrown + 1)
+
+      loop(0)
+
+    monkeys.foldLeft(List.empty[Int])((acc, monkey) => singleTurn(monkey, monkeys) :: acc).reverse
 
   def countMonkeyBusinessLevel(monkeys: Vector[Monkey], nrRounds: Int): Long =
     val lcm: Long = calcLcm(monkeys.map(_.modulus))

@@ -1,6 +1,6 @@
 object Day11b:
   import scala.annotation.tailrec
-  import scala.collection.mutable.{Queue => MutableQueue}
+  import scala.collection.mutable.Queue as MutableQueue
   type MonkeyId = Int
 
   class Monkey(startingItems: Seq[Long],

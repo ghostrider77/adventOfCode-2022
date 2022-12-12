@@ -223,141 +223,169 @@ class AocSuite extends AnyFreeSpec, Matchers:
         findSmallestRemovableDirectory(directoryStructure, availableDiskSpace, requiredSpace) shouldEqual 24933642
       }
     }
+  }
 
-    "Day 08" - {
-      val trees: Vector[Vector[Int]] =
-        Vector(
-          Vector(3, 0, 3, 7, 3),
-          Vector(2, 5, 5, 1, 2),
-          Vector(6, 5, 3, 3, 2),
-          Vector(3, 3, 5, 4, 9),
-          Vector(3, 5, 3, 9, 0)
-        )
+  "Day 08" - {
+    val trees: Vector[Vector[Int]] =
+      Vector(
+        Vector(3, 0, 3, 7, 3),
+        Vector(2, 5, 5, 1, 2),
+        Vector(6, 5, 3, 3, 2),
+        Vector(3, 3, 5, 4, 9),
+        Vector(3, 5, 3, 9, 0)
+      )
 
-      "Part 1" - {
-        import Day08a.{TreeGrid, countNrVisibleTrees}
+    "Part 1" - {
+      import Day08a.{TreeGrid, countNrVisibleTrees}
 
-        "should count the number of trees visible from either side of the forest" in {
-          countNrVisibleTrees(TreeGrid(5, 5, trees)) shouldEqual 21
-        }
-      }
-
-      "Part 2" - {
-        import Day08b.{TreeGrid, getHighestScenicScore}
-
-        "should return the highest scenic score" in {
-          getHighestScenicScore(TreeGrid(5, 5, trees)) shouldEqual 8
-        }
+      "should count the number of trees visible from either side of the forest" in {
+        countNrVisibleTrees(TreeGrid(5, 5, trees)) shouldEqual 21
       }
     }
 
-    "Day 09" - {
-      "Part 1" - {
-        import Day09a.{Direction, Motion, calcNrVisitedPositions}
+    "Part 2" - {
+      import Day08b.{TreeGrid, getHighestScenicScore}
 
-        "should calculate the number of unique positions that tail has visited" in {
-          val motions: List[Motion] =
-            List(
-              Motion(Direction.Right, 4),
-              Motion(Direction.Up, 4),
-              Motion(Direction.Left, 3),
-              Motion(Direction.Down, 1),
-              Motion(Direction.Right, 4),
-              Motion(Direction.Down, 1),
-              Motion(Direction.Left, 5),
-              Motion(Direction.Right, 2)
-            )
-
-          calcNrVisitedPositions(motions) shouldEqual 13
-        }
-      }
-
-      "Part 2" - {
-        import Day09b.{Direction, Motion, calcNrVisitedPositions}
-
-        "should calculate the number of unique positions that the tail of a large rope has visited" in {
-          val motions: List[Motion] =
-            List(
-              Motion(Direction.Right, 5),
-              Motion(Direction.Up, 8),
-              Motion(Direction.Left, 8),
-              Motion(Direction.Down, 3),
-              Motion(Direction.Right, 17),
-              Motion(Direction.Down, 10),
-              Motion(Direction.Left, 25),
-              Motion(Direction.Up, 20)
-            )
-
-          val ropeSize: Int = 10
-          calcNrVisitedPositions(motions, ropeSize) shouldEqual 36
-        }
+      "should return the highest scenic score" in {
+        getHighestScenicScore(TreeGrid(5, 5, trees)) shouldEqual 8
       }
     }
+  }
 
-    "Day 10" - {
-      val lines: List[String] = scala.io.Source.fromResource("test10.txt").getLines().toList
+  "Day 09" - {
+    "Part 1" - {
+      import Day09a.{Direction, Motion, calcNrVisitedPositions}
 
-      "Part 1" - {
-        import Day10a.{Program, calcSumOfSignalStrengths, readInstructions}
-
-        "should calculate the signal strength" in {
-          val program: List[Program] = readInstructions(lines.iterator)
-          calcSumOfSignalStrengths(program) shouldEqual 13140
-        }
-      }
-
-      "Part 2" - {
-        import Day10b.{Pixel, Program, calcScreenContent, readInstructions}
-
-        "should calculate the visible CRT screen pixels" in {
-          val program: List[Program] = readInstructions(lines.iterator)
-          val screen: List[Pixel] = calcScreenContent(program)
-          val expectedContent: List[String] = List(
-            "##..##..##..##..##..##..##..##..##..##..",
-            "###...###...###...###...###...###...###.",
-            "####....####....####....####....####....",
-            "#####.....#####.....#####.....#####.....",
-            "######......######......######......####",
-            "#######.......#######.......#######....."
+      "should calculate the number of unique positions that tail has visited" in {
+        val motions: List[Motion] =
+          List(
+            Motion(Direction.Right, 4),
+            Motion(Direction.Up, 4),
+            Motion(Direction.Left, 3),
+            Motion(Direction.Down, 1),
+            Motion(Direction.Right, 4),
+            Motion(Direction.Down, 1),
+            Motion(Direction.Left, 5),
+            Motion(Direction.Right, 2)
           )
 
-          screen.grouped(40).map(_.mkString).toList shouldEqual expectedContent
-        }
+        calcNrVisitedPositions(motions) shouldEqual 13
       }
     }
 
-    "Day 11" - {
+    "Part 2" - {
+      import Day09b.{Direction, Motion, calcNrVisitedPositions}
 
-      "Part 1" - {
-        import Day11a.{Monkey, countMonkeyBusinessLevel}
+      "should calculate the number of unique positions that the tail of a large rope has visited" in {
+        val motions: List[Motion] =
+          List(
+            Motion(Direction.Right, 5),
+            Motion(Direction.Up, 8),
+            Motion(Direction.Left, 8),
+            Motion(Direction.Down, 3),
+            Motion(Direction.Right, 17),
+            Motion(Direction.Down, 10),
+            Motion(Direction.Left, 25),
+            Motion(Direction.Up, 20)
+          )
 
-        "should calculate the level of monkey business" in {
-          val monkeys: Vector[Monkey] =
-            Vector(
-              Monkey(List(79, 98), 0, (x: Int) => x * 19, 23, 2, 3),
-              Monkey(List(54, 65, 75, 74), 1, (x: Int) => x + 6, 19, 2, 0),
-              Monkey(List(79, 60, 97), 2, (x: Int) => x * x, 13, 1, 3),
-              Monkey(List(74), 3, (x: Int) => x + 3, 17, 0, 1)
-            )
-
-          countMonkeyBusinessLevel(monkeys, nrRounds = 20) shouldEqual 10605
-        }
+        val ropeSize: Int = 10
+        calcNrVisitedPositions(motions, ropeSize) shouldEqual 36
       }
+    }
+  }
 
-      "Part 2" - {
-        import Day11b.{Monkey, countMonkeyBusinessLevel}
+  "Day 10" - {
+    val lines: List[String] = scala.io.Source.fromResource("test10.txt").getLines().toList
 
-        "should calculate the level of very long monkey business" in {
-          val monkeys: Vector[Monkey] =
-            Vector(
-              Monkey(List(79, 98), 0, (x: Long) => x * 19, 23, 2, 3),
-              Monkey(List(54, 65, 75, 74), 1, (x: Long) => x + 6, 19, 2, 0),
-              Monkey(List(79, 60, 97), 2, (x: Long) => x * x, 13, 1, 3),
-              Monkey(List(74), 3, (x: Long) => x + 3, 17, 0, 1)
-            )
+    "Part 1" - {
+      import Day10a.{Program, calcSumOfSignalStrengths, readInstructions}
 
-          countMonkeyBusinessLevel(monkeys, nrRounds = 20) shouldEqual 10197L
-        }
+      "should calculate the signal strength" in {
+        val program: List[Program] = readInstructions(lines.iterator)
+        calcSumOfSignalStrengths(program) shouldEqual 13140
+      }
+    }
+
+    "Part 2" - {
+      import Day10b.{Pixel, Program, calcScreenContent, readInstructions}
+
+      "should calculate the visible CRT screen pixels" in {
+        val program: List[Program] = readInstructions(lines.iterator)
+        val screen: List[Pixel] = calcScreenContent(program)
+        val expectedContent: List[String] = List(
+          "##..##..##..##..##..##..##..##..##..##..",
+          "###...###...###...###...###...###...###.",
+          "####....####....####....####....####....",
+          "#####.....#####.....#####.....#####.....",
+          "######......######......######......####",
+          "#######.......#######.......#######....."
+        )
+
+        screen.grouped(40).map(_.mkString).toList shouldEqual expectedContent
+      }
+    }
+  }
+
+  "Day 11" - {
+
+    "Part 1" - {
+      import Day11a.{Monkey, countMonkeyBusinessLevel}
+
+      "should calculate the level of monkey business" in {
+        val monkeys: Vector[Monkey] =
+          Vector(
+            Monkey(List(79, 98), 0, (x: Int) => x * 19, 23, 2, 3),
+            Monkey(List(54, 65, 75, 74), 1, (x: Int) => x + 6, 19, 2, 0),
+            Monkey(List(79, 60, 97), 2, (x: Int) => x * x, 13, 1, 3),
+            Monkey(List(74), 3, (x: Int) => x + 3, 17, 0, 1)
+          )
+
+        countMonkeyBusinessLevel(monkeys, nrRounds = 20) shouldEqual 10605
+      }
+    }
+
+    "Part 2" - {
+      import Day11b.{Monkey, countMonkeyBusinessLevel}
+
+      "should calculate the level of very long monkey business" in {
+        val monkeys: Vector[Monkey] =
+          Vector(
+            Monkey(List(79, 98), 0, (x: Long) => x * 19, 23, 2, 3),
+            Monkey(List(54, 65, 75, 74), 1, (x: Long) => x + 6, 19, 2, 0),
+            Monkey(List(79, 60, 97), 2, (x: Long) => x * x, 13, 1, 3),
+            Monkey(List(74), 3, (x: Long) => x + 3, 17, 0, 1)
+          )
+
+        countMonkeyBusinessLevel(monkeys, nrRounds = 20) shouldEqual 10197L
+      }
+    }
+  }
+
+  "Day 12" - {
+    val lines: List[String] = List(
+      "Sabqponm",
+      "abcryxxl",
+      "accszExk",
+      "acctuvwj",
+      "abdefghi"
+    )
+
+    "Part 1" - {
+      import Day12a.{Cell, HeightMap, breadthFirstSearch, parseHeightMap}
+
+      "should calculate the shortest distance from Start to End node in a heightmap" in {
+        val (heightMap, start, end): (HeightMap, Cell, Cell) = parseHeightMap(lines.iterator)
+        breadthFirstSearch(heightMap, start, end) shouldEqual 31
+      }
+    }
+
+    "Part 2" - {
+      import Day12b.{Cell, HeightMap, parseHeightMap, findShortestHikingPath}
+
+      "should calculate the shortest distance from any possible start cell to End node in a heightmap" in {
+        val (heightMap, starts, end): (HeightMap, List[Cell], Cell) = parseHeightMap(lines.iterator)
+        findShortestHikingPath(heightMap, starts, end) shouldEqual 29
       }
     }
   }

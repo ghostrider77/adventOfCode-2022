@@ -390,4 +390,27 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 13" - {
+    val lines: List[String] = scala.io.Source.fromResource("test13.txt").getLines().toList
+
+    "Part 1" - {
+      import Day13a.{Packet, findIndicesOfCorrectlyOrderedPairs, parseInput}
+
+      "should calculate the index sum of the correctly ordered packets" in {
+        val packetPairs: List[(Packet, Packet)] = parseInput(lines.iterator)
+        findIndicesOfCorrectlyOrderedPairs(packetPairs) shouldEqual 13
+      }
+    }
+
+    "Part 2" - {
+      import Day13b.{Packet, findDividerPackets, parseInput}
+
+      "should calculate the index product of the 2 divider packets in the sorted packet list" in {
+        val packets: List[Packet] = parseInput(lines.iterator)
+        val dividerPackets: List[Packet] = parseInput(Iterator("[[2]]", "[[6]]"))
+        findDividerPackets(packets, dividerPackets) shouldEqual 140
+      }
+    }
+  }
+
 end AocSuite

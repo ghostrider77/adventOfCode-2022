@@ -413,4 +413,24 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 14" - {
+    val lines: List[String] = List("498,4 -> 498,6 -> 496,6", "503,4 -> 502,4 -> 502,9 -> 494,9")
+
+    "Part 1" - {
+      import Day14a.{Cell, parseInputData, pourSandIntoCave}
+
+      "should calculate the number of sand units that do not flow into the abyss" in {
+        pourSandIntoCave(parseInputData(lines.iterator), Cell(500, 0)) shouldEqual 24
+      }
+    }
+
+    "Part 2" - {
+      import Day14b.{Cell, parseInputData, pourSandIntoCave}
+
+      "should calculate the number of sand units that finally blocks the sand source" in {
+        pourSandIntoCave(parseInputData(lines.iterator), Cell(500, 0)) shouldEqual 93
+      }
+    }
+  }
+
 end AocSuite

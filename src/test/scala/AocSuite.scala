@@ -433,4 +433,17 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 15" - {
+    val lines: List[String] = scala.io.Source.fromResource("test15.txt").getLines().toList
+
+    "Part 1" - {
+      import Day15a.{Sensor, parseData, calcNrBeaconFreeCells}
+
+      "should calculate the number of positions that cannot contain a beacon" in {
+        val sensors: List[Sensor] = parseData(lines.iterator)
+        calcNrBeaconFreeCells(sensors, y = 10) shouldEqual 26
+      }
+    }
+  }
+
 end AocSuite

@@ -446,4 +446,18 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 17" - {
+    val line: String = ">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>"
+
+    "Part 1" - {
+      import Day17a.{JetPattern, calcRockTowerHeight, readInput}
+
+      "should calculate the height of a chamber after rocks fallen into it" in {
+        val jetPatterns: Iterator[JetPattern] = readInput(line)
+        val nrRocks: Int = 10
+        calcRockTowerHeight(nrRocks, jetPatterns) shouldEqual 17
+      }
+    }
+  }
+
 end AocSuite

@@ -460,4 +460,26 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 18" - {
+    val lines: List[String] = scala.io.Source.fromResource("test18.txt").getLines().toList
+
+    "Part 1" - {
+      import Day18a.{Cube, countFaces, readInput}
+
+      "should calculate the number of faces of a 3D object made of unit cubes that have no joining face" in {
+        val cubes: List[Cube] = readInput(lines.iterator)
+        countFaces(cubes) shouldEqual 64
+      }
+    }
+
+    "Part 2" - {
+      import Day18b.{Cube, calcNrCubeSidesFacingOutside, readInput}
+
+      "should calculate the number of cube sides that touch the outside air" in {
+        val cubes: Set[Cube] = readInput(lines.iterator)
+        calcNrCubeSidesFacingOutside(cubes) shouldEqual 58
+      }
+    }
+  }
+
 end AocSuite

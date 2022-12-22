@@ -54,10 +54,7 @@ object Day21a:
         case _ =>
           val oldLeafNames: Set[String] =
             ripeNodes.flatMap{ case (_, (Leaf(name1, _), Leaf(name2, _))) => List(name1, name2) }
-          val nodes: Map[String, Node] =
-            currentGraph
-              .nodes
-              .filter{ case (name, _) => !oldLeafNames.contains(name) }
+          val nodes: Map[String, Node] = currentGraph.nodes.filter{ case (name, _) => !oldLeafNames.contains(name) }
           loop(Graph(nodes ++ newLeaves))
     loop(graph)
 

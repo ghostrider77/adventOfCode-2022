@@ -493,6 +493,15 @@ class AocSuite extends AnyFreeSpec, Matchers:
         squeezeGraph(graph) shouldEqual 152
       }
     }
+
+    "Part 2" - {
+      import Day21b.{Graph, readInput, squeezeGraph}
+
+      "should calculate the number that I should yell" in {
+        val graph: Graph = readInput(lines.iterator)
+        squeezeGraph(graph) shouldEqual 301
+      }
+    }
   }
 
 end AocSuite

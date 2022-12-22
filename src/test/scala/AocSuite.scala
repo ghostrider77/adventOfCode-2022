@@ -482,4 +482,17 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 21" - {
+    val lines: List[String] = scala.io.Source.fromResource("test21.txt").getLines().toList
+
+    "Part 1" - {
+      import Day21a.{Graph, readInput, squeezeGraph}
+
+      "should calculate the number that a monkey named `root` yells" in {
+        val graph: Graph = readInput(lines.iterator)
+        squeezeGraph(graph) shouldEqual 152
+      }
+    }
+  }
+
 end AocSuite

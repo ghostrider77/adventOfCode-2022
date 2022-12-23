@@ -504,4 +504,35 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 23" - {
+    val lines: List[String] =
+      List(
+        ".......#......",
+        ".....###.#....",
+        "...#...#.#....",
+        "....#...##....",
+        "...#.###......",
+        "...##.#.##....",
+        "....#..#......"
+    )
+
+    "Part 1" - {
+      import Day23a.{Cell, calcNrEmptyGrounds, readInput}
+
+      "should calculate the empty ground cells of the smallest enclosing rectangle" in {
+        val elves: Set[Cell] = readInput(lines.iterator)
+        calcNrEmptyGrounds(elves, nrRounds = 10) shouldEqual 110
+      }
+    }
+
+    "Part 2" - {
+      import Day23b.{Cell, calcNrRequiredSteps, readInput}
+
+      "should calculate the number of the first round when the elves do not move" in {
+        val elves: Set[Cell] = readInput(lines.iterator)
+        calcNrRequiredSteps(elves) shouldEqual 20
+      }
+    }
+  }
+
 end AocSuite

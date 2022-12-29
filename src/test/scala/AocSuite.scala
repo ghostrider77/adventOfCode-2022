@@ -482,6 +482,30 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 20" - {
+    val sequence: List[Int] = List(1, 2, -3, 3, -2, 0, 4)
+
+    "Part 1" - {
+      import Day20a.mixSequence
+
+      "should calculate the sum of the three numbers that form the grove coordinates" in {
+        val indices: List[Int] = List(1000, 2000, 3000)
+        mixSequence(sequence, indices) shouldEqual 3
+      }
+    }
+
+    "Part 2" - {
+      import Day20b.{DecriptionKey, mixSequence}
+
+      "should calculate the sum of the three numbers that form the grove coordinates" in {
+        val indices: List[Int] = List(1000, 2000, 3000)
+        val decryptedSequence: List[Long] = sequence.map(_.toLong * DecriptionKey)
+        val nrRounds: Int = 10
+        mixSequence(decryptedSequence, nrRounds, indices) shouldEqual 1623178306L
+      }
+    }
+  }
+
   "Day 21" - {
     val lines: List[String] = scala.io.Source.fromResource("test21.txt").getLines().toList
 

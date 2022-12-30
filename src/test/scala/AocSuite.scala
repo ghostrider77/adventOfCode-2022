@@ -528,6 +528,19 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 22" - {
+    val lines: List[String] = scala.io.Source.fromResource("test22.txt").getLines().toList
+
+    "Part 1" - {
+      import Day22a.{Board, Move, followThePath, readInput}
+
+      "should calculate the final password after walking on the map" in {
+        val (board, moves): (Board, List[Move]) = readInput(lines.iterator)
+        followThePath(board, moves) shouldEqual 6032
+      }
+    }
+  }
+
   "Day 23" - {
     val lines: List[String] =
       List(

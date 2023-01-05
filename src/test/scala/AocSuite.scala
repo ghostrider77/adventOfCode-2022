@@ -572,4 +572,34 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 24" - {
+    val lines: List[String] =
+      List(
+        "#.######",
+        "#>>.<^<#",
+        "#.<..<<#",
+        "#>v.><>#",
+        "#<^v^^>#",
+        "######.#"
+      )
+
+    "Part 1" - {
+      import Day24a.{ValleyMap, findShortestPath, readInput}
+
+      "should calculate the shortest path from the valley entrance to the exit" in {
+        val valley: ValleyMap = readInput(lines)
+        findShortestPath(valley) shouldEqual 18
+      }
+    }
+
+    "Part 2" - {
+      import Day24b.{ValleyMap, readInput, roundTrip}
+
+      "should calculate the shortest path from the valley entrance to the exit then back and to the exit again" in {
+        val valley: ValleyMap = readInput(lines)
+        roundTrip(valley) shouldEqual 54
+      }
+    }
+  }
+
 end AocSuite

@@ -602,4 +602,32 @@ class AocSuite extends AnyFreeSpec, Matchers:
     }
   }
 
+  "Day 25" - {
+    "Part 1" - {
+      import Day25a.{SnafuNumber, readInput, calcSnafuSum}
+
+      "should calculate the shortest path from the valley entrance to the exit" in {
+        val lines: List[String] =
+          List(
+            "1=-0-2",
+            "12111",
+            "2=0=",
+            "21",
+            "2=01",
+            "111",
+            "20012",
+            "112",
+            "1=-1=",
+            "1-12",
+            "12",
+            "1=",
+            "122"
+          )
+
+        val numbers: List[SnafuNumber] = readInput(lines.iterator)
+        calcSnafuSum(numbers).toString shouldEqual "2=-1=0"
+      }
+    }
+  }
+
 end AocSuite

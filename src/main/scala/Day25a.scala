@@ -26,6 +26,7 @@ object Day25a:
       case "0" => Zero
       case "1" => One
       case "2" => Two
+      case _ => throw Exception(s"Input string $c cannot be converted to a SnafuDigit.")
 
   case class SnafuNumber(digits: List[SnafuDigits]):
     override def toString: String = digits.mkString
